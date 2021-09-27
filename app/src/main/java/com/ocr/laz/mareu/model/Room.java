@@ -21,4 +21,9 @@ public class Room {
         return NbPlaces;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }

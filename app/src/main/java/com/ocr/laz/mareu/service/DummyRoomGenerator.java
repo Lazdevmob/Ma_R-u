@@ -27,9 +27,10 @@ public abstract class DummyRoomGenerator {
         new Room("Kappa",3)
     );
 
-    static List<Room> generateRooms() {
+    public static List<Room> generateRooms() {
         return new ArrayList<>(DUMMY_ROOMS);
     }
+
 }
 
 

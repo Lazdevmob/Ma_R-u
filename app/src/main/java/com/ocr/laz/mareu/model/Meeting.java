@@ -1,16 +1,19 @@
 package com.ocr.laz.mareu.model;
 
+import java.util.Date;
+
 /**
  * Created by Lazdev OCR on 08/09/2021.
  */
 public class Meeting {
 
-    private long id;
+    private long roomId;
     private  String subject;
     private String beginDate;
     private String guest;
-    //private long roomId;
     private String roomName;
+    //private Hour mHour;
+
 
 
 
@@ -19,6 +22,7 @@ public class Meeting {
         this.beginDate = beginDate;
         this.guest = guest;
         this.roomName = roomName;
+        //mHour = date;
     }
 
     //private final Date mEndDate;

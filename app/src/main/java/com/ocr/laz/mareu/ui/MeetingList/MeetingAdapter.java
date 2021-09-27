@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ocr.laz.mareu.databinding.MeetingItem2Binding;
+import com.ocr.laz.mareu.databinding.MeetingItemBinding;
 import com.ocr.laz.mareu.model.Meeting;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
     public MeetingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 //        View view = LayoutInflater.from(parent.getContext())
 //                .inflate(R.layout.meeting_item2,parent,false);
-        MeetingItem2Binding binding = MeetingItem2Binding
+        MeetingItemBinding binding = MeetingItemBinding
                 .inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new MeetingViewHolder(binding);
     }
