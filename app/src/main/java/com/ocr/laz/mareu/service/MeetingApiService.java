@@ -6,7 +6,6 @@ package com.ocr.laz.mareu.service;
 
 import com.ocr.laz.mareu.model.Meeting;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,27 +13,28 @@ import java.util.List;
  */
 public interface MeetingApiService {
 
-/**
- * get all meeting return {@link List}
- */
-List<Meeting> getMeetings();
+    /**
+     * get all meeting return {@link List}
+     */
+    List<Meeting> getMeetings();
 
-/**
- * delete a meeting
- * @param meeting
- */
+    /**
+     * delete a meeting
+     *
+     * @param meeting
+     */
 
-void deleteMeeting (Meeting meeting);
-
-
-
-/**
- * create a meeting
- * @param meeting
- */
-void createMeeting (Meeting meeting);
+    void deleteMeeting(Meeting meeting);
 
 
+    /**
+     * create a meeting
+     *
+     * @param meeting
+     */
+    void createMeeting(Meeting meeting);
 
+    List<Meeting> getMeetingsAtGivenDate(String givenDate);
 
+    List<Meeting> getMeetingsInGivenRooms(List<String> selectedRooms);
 }

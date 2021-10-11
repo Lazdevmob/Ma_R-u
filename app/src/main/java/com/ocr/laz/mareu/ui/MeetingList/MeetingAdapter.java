@@ -21,7 +21,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
     private final DeleteItemListener callback;
     private final EditMeetingListener callback2;
 
-
     public MeetingAdapter(List<Meeting> items, DeleteItemListener deleteItemListener, EditMeetingListener editMeetingListerner) {
         mMeetings = items;
         callback = deleteItemListener;
@@ -39,8 +38,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
     @NonNull
     @Override
     public MeetingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.meeting_item2,parent,false);
         MeetingItemBinding binding = MeetingItemBinding
                 .inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new MeetingViewHolder(binding);
@@ -49,7 +46,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MeetingViewHolder holder, int position) {
         Meeting meeting = mMeetings.get(position);
-        holder.displayMeetings(meeting);
+        holder.displayMeeting(meeting);
 
         holder.meetingDeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,39 +62,11 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
                 return false;
             }
         });
+        //Glide.with(this)
     }
-
-//    @Override
-//    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        Meeting meeting = mMeetings.get(position);
-//        holder.displayMeetings(meeting);
-//       // holder.displayMeetings(mMeetings.get(position));
-//
-//    }
 
     @Override
     public int getItemCount() {
         return mMeetings.size();
     }
-
-    //    public static class ViewHolder extends RecyclerView.ViewHolder{
-//
-//       //
-//       // public final ImageView;
-//
-//        private final ImageView meetingAvatar;
-//        private final TextView meetingDescription;
-//        private final ImageButton meetingDeleteBtn;
-//
-//        public ViewHolder(@NonNull MeetingItem2Binding binding) {
-//            super(binding.getRoot());
-//            meetingAvatar = binding.itemListMeetingAvatar;
-//            meetingDescription = binding.itemListMeetingDesription;
-//            meetingDeleteBtn = binding.itemListMeetingDeleteButton;
-//        }
-//
-//        public void displayMeetings(Meeting meeting) {
-//            meetingDescription.setText( meeting.getSubject());
-//        }
-//    }
 }

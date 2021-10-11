@@ -16,16 +16,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_avatar"
-        app:tint="@color/purple_700"
-        />
+        android:src="@drawable/ic_avatar" />
 
 
     <TextView
         android:id="@+id/item_list_meeting_desription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="16dp"
         android:text="TextView"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/item_list_meeting_avatar"
@@ -35,7 +33,7 @@
         android:id="@+id/item_list_meeting_guest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="16dp"
         android:text="TextView"
 
         android:typeface="sans"

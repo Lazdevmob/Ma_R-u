@@ -9,10 +9,11 @@ import java.util.List;
  * Created by Lazdev OCR on 14/09/2021.
  */
 public class ImplMeetingApiService implements MeetingApiService  {
+    String givenDate;
 
 
 //    private final List<Meeting> meetings= new ArrayList<>();
-    private final List<Meeting> meetings= new ArrayList<>(DummyMeetingGenerator.generateMeetings());
+    private final List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();
 
 
     @Override
@@ -28,6 +29,22 @@ public class ImplMeetingApiService implements MeetingApiService  {
     @Override
     public void createMeeting(Meeting meeting) {
         meetings.add(meeting);
-
     }
+
+    @Override
+    public List<Meeting> getMeetingsAtGivenDate(String givenDate) {
+        List<Meeting> filteredMeetingByDateList = new ArrayList<>();
+        for ( Meeting m : meetings) {
+            if (m.getDate().equals(givenDate)) {
+                filteredMeetingByDateList.add(m);
+            }
+        }
+        return filteredMeetingByDateList;
+    }
+
+    @Override
+    public List<Meeting> getMeetingsInGivenRooms(List<String> selectedRooms) {
+        return null;
+    }
+
 }
