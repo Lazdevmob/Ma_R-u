@@ -3,15 +3,19 @@ package com.ocr.laz.mareu.ui.MeetingList;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.ocr.laz.mareu.R;
 import com.ocr.laz.mareu.databinding.ActivityAddMeetingBinding;
 import com.ocr.laz.mareu.di.Di;
 import com.ocr.laz.mareu.model.Meeting;
@@ -24,15 +28,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class AddMeetingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class AddMeetingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, View.OnClickListener,
+        AdapterView.OnItemSelectedListener {
 
     ActivityAddMeetingBinding binding;
     private MeetingApiService mMeetingApiService = Di.getMeetingApiService();
     //private final List<Room> rooms= new ArrayList<>();
-    private String roomSelected;
     private Calendar calendar;
     //int hour,minutes,dayOfMonth,month,year;
     private List<Room> rooms;
+    private String[] listGuestItems;
+    boolean[] checkedItems;
+    private List<String> selectedGuests = new ArrayList<String>();
 
 
     @Override
@@ -45,6 +52,9 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerD
         calendar = Calendar.getInstance();
         setButton();
         initSpinner();
+        //initSpinner2();
+        listGuestItems = getResources().getStringArray(R.array.Guest_List);
+        checkedItems = new boolean[listGuestItems.length];
     }
 
     @Override
@@ -58,6 +68,10 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerD
         if (view == binding.textFieldDate2) {
             popDatePicker();
         }
+        if (view == binding.textFieldGuest2) {
+            guestDialog();
+        }
+
     }
 
     public void popTimePicker() {
@@ -69,9 +83,9 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerD
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
-               SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-               String hour = simpleDateFormat.format(calendar.getTime());
-               binding.textFieldHour2.setText(hour);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+                String hour = simpleDateFormat.format(calendar.getTime());
+                binding.textFieldHour2.setText(hour);
             }
         };
 
@@ -99,21 +113,21 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerD
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.YEAR, year);
 
-               //DateFormatSymbols monDFS = new DateFormatSymbols();
-               //String[] joursCourts = new String[] {
-               //        "",
-               //        "Di",
-               //        "Lu",
-               //        "Ma",
-               //        "Me",
-               //        "Je",
-               //        "Ve",
-               //        "Sa" };
-               //monDFS.setShortWeekdays(joursCourts);
+                //DateFormatSymbols monDFS = new DateFormatSymbols();
+                //String[] joursCourts = new String[] {
+                //        "",
+                //        "Di",
+                //        "Lu",
+                //        "Ma",
+                //        "Me",
+                //        "Je",
+                //        "Ve",
+                //        "Sa" };
+                //monDFS.setShortWeekdays(joursCourts);
 
-               //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE dd/MM/yy", monDFS);
-               SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE dd/MM/yy");
-               String date = simpleDateFormat.format(calendar.getTime());
+                //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE dd/MM/yy", monDFS);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE dd/MM/yy");
+                String date = simpleDateFormat.format(calendar.getTime());
                 binding.textFieldDate2.setText(date);
 
                 //binding.textFieldDate2.setText(String.format(Locale.getDefault(), "%d/%d/%d", dayOfMonth, month, year));
@@ -143,7 +157,60 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerD
         binding.textFieldRoom2.setAdapter(adapter);
         //binding.spinnerRoom.setAdapter(adapter);
         //binding.spinnerRoom.setOnItemSelectedListener(this);
+    }
 
+   // private void initSpinner2() {
+   //     listGuestItems = getResources().getStringArray(R.array.Guest_List);
+   //     //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, listGuestItems);
+   //     ArrayAdapter<String> adapter;
+   //     adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, listGuestItems);
+   //     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+   //     binding.textFieldGuest2.setAdapter(adapter);
+   //    binding.textFieldGuest2.setOnItemSelectedListener(this);
+   //     //binding.textFieldGuest2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+   //     //    @Override
+   //     //    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+   //     //    }
+//
+   //     //    @Override
+   //     //    public void onNothingSelected(AdapterView<?> parent) {
+//
+   //     //    }
+   //     //});
+   // }
+
+    private void guestDialog() {
+        MaterialAlertDialogBuilder mGBuilder = new MaterialAlertDialogBuilder(this);
+        mGBuilder.setTitle("Select Guest");
+
+        mGBuilder.setPositiveButton("ok", (dialog, which) -> {
+            String guests = selectedGuests.toString()
+                    .replace("[", "").replace("]", "");
+            //binding.textFieldGuest2.setText(selectedGuests.toString());
+            binding.textFieldGuest2.setText(guests);
+        });
+
+      // listGuestItems = getResources().getStringArray(R.array.Guest_List);
+      // checkedItems = new boolean[listGuestItems.length];
+        //TODO retablir les cases cochées
+        mGBuilder.setMultiChoiceItems(listGuestItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+           @Override
+           public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+               if (!selectedGuests.contains(listGuestItems[which])) {
+                   selectedGuests.add(listGuestItems[which]);
+
+               } else {
+                   selectedGuests.remove(listGuestItems[which]);
+               }
+               checkedItems[which]=isChecked;
+               Toast.makeText(AddMeetingActivity.this.getApplicationContext(), selectedGuests + " is checked", Toast.LENGTH_SHORT).show();
+           }
+
+
+        });
+        mGBuilder.show();
     }
 
     @Override
@@ -155,16 +222,15 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerD
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
     private void setButton() {
         binding.saveMeetingButton.setOnClickListener(this);
         binding.textFieldHour2.setOnClickListener(this);
         binding.textFieldDate2.setOnClickListener(this);
-
+        binding.textFieldGuest.setOnClickListener(this);
+        binding.textFieldGuest2.setOnClickListener(this);
     }
-
 
     private void onSubmit() {
         String subject = binding.textFieldSubject.getEditText().getText().toString();
@@ -174,34 +240,32 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerD
         String guest = binding.textFieldGuest.getEditText().getText().toString();
 
 
-    // if (subject.isEmpty()) {
-    //     binding.textFieldSubject.setError("Please type a subject");
-    //     return;
-    // }
-    // if (date.isEmpty()) {
-    //     binding.textFieldDate.setError("Please choose a date");
-    //     return;
-    // }
+        // if (subject.isEmpty()) {
+        //     binding.textFieldSubject.setError("Please type a subject");
+        //     return;
+        // }
+        // if (date.isEmpty()) {
+        //     binding.textFieldDate.setError("Please choose a date");
+        //     return;
+        // }
 
-    // if (beginHour.isEmpty()) {
-    //     binding.textFieldHour.setError("Please choose an hour");
-    //     return;
-    // }
+        // if (beginHour.isEmpty()) {
+        //     binding.textFieldHour.setError("Please choose an hour");
+        //     return;
+        // }
 
-    // if (roomName.isEmpty()) {
-    //     binding.textFieldRoom.setError("Please choose a room");
-    //     return;
-    // }
+        // if (roomName.isEmpty()) {
+        //     binding.textFieldRoom.setError("Please choose a room");
+        //     return;
+        // }
 
-    // if (guest.isEmpty()) {
-    //     binding.textFieldGuest.setError("Please choose guest");
-    //     return;
-    // }
+        // if (guest.isEmpty()) {
+        //     binding.textFieldGuest.setError("Please choose guest");
+        //     return;
+        // }
 
         mMeetingApiService.createMeeting(new Meeting(subject, beginHour, date, guest, roomName));
-
         //Toast.makeText(this,"Mail sent !",Toast.LENGTH_SHORT).show();finish();
-
         finish();
     }
 

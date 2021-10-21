@@ -1,18 +1,14 @@
 package com.ocr.laz.mareu.service;
 
 import androidx.annotation.VisibleForTesting;
-
 import com.ocr.laz.mareu.R;
 import com.ocr.laz.mareu.model.Room;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 
 /**
  * Created by Lazdev OCR on 10/09/2021.

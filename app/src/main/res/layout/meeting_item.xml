@@ -31,15 +31,15 @@
 
     <TextView
         android:id="@+id/item_list_meeting_guest"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:text="TextView"
-
-        android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="@+id/item_list_meeting_avatar"
         app:layout_constraintStart_toEndOf="@+id/item_list_meeting_avatar"
-        tools:layout_editor_absoluteY="37dp" />
+        app:layout_constraintEnd_toStartOf="@id/item_list_meeting_delete_button"
+        android:maxLines="1"/>
 
     <ImageButton
         android:id="@+id/item_list_meeting_delete_button"

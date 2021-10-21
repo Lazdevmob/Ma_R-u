@@ -1,5 +1,7 @@
 package com.ocr.laz.mareu.model;
 
+import androidx.annotation.NonNull;
+
 /**
  * Created by Lazdev OCR on 08/09/2021.
  */

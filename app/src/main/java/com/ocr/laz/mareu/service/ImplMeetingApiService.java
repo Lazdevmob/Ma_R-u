@@ -9,10 +9,9 @@ import java.util.List;
  * Created by Lazdev OCR on 14/09/2021.
  */
 public class ImplMeetingApiService implements MeetingApiService  {
-    String givenDate;
 
 
-//    private final List<Meeting> meetings= new ArrayList<>();
+    //    private final List<Meeting> meetings= new ArrayList<>();
     private final List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();
 
 
@@ -44,7 +43,14 @@ public class ImplMeetingApiService implements MeetingApiService  {
 
     @Override
     public List<Meeting> getMeetingsInGivenRooms(List<String> selectedRooms) {
-        return null;
+        List<Meeting> filteredselectedRoomsList = new ArrayList<>();
+        for ( Meeting m : meetings) {
+            if (selectedRooms.contains(m.getRoomName())) {
+                filteredselectedRoomsList.add(m);
+            }
+        }
+        return filteredselectedRoomsList;
+
     }
 
 }

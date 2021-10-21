@@ -45,8 +45,10 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
                 .append(meeting.getRoomName()).append(" - ").append(meeting.getGuest()).toString());
 
         Map<String, Integer> roomHashMap = DummyRoomGenerator.generateRoomHashMap();
-        int roomColor = roomHashMap.get(meeting.getRoomName());
-        meetingAvatar.setColorFilter(roomColor);
+        if (!meeting.getRoomName().equals("")) {
+            int roomColor = roomHashMap.get(meeting.getRoomName());
+            meetingAvatar.setColorFilter(roomColor);
+        }
     }
 }
 

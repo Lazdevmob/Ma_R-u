@@ -2,8 +2,6 @@ package com.ocr.laz.mareu.ui.MeetingList;
 
 import static android.content.DialogInterface.OnClickListener;
 import static android.content.DialogInterface.OnMultiChoiceClickListener;
-
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -111,8 +109,10 @@ public class ListMeetingActivity<AlertDialogBuilder> extends AppCompatActivity i
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getApplicationContext(), selectedRooms.toString(), Toast.LENGTH_LONG).show();
-                List<Meeting> filteredList = mMeetingApiService.getMeetingsInGivenRooms(selectedRooms);
+                List<Meeting> filteredRoomList = mMeetingApiService.getMeetingsInGivenRooms(selectedRooms);
+
                 // TODO mettre en place initlist
+                initList(filteredRoomList, true);
                 selectedRooms.clear();
             }
         });
@@ -143,7 +143,6 @@ public class ListMeetingActivity<AlertDialogBuilder> extends AppCompatActivity i
         });
         mBuilder.show();
     }
-
 
     private void dateDialog() {
         calendar = Calendar.getInstance();
@@ -195,7 +194,6 @@ public class ListMeetingActivity<AlertDialogBuilder> extends AppCompatActivity i
         //initList(mMeetingApiService.getMeetings(), true); //effectué par le onResume() (exécuté après onCreate() )
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private void initList(List<Meeting> meetings, boolean doRefresh) {
         mMeetings.clear();
         mMeetings.addAll(meetings);
@@ -211,7 +209,6 @@ public class ListMeetingActivity<AlertDialogBuilder> extends AppCompatActivity i
         ListMeetingActivity.this.startActivity(new Intent(this, AddMeetingActivity.class));
 //        Toast.makeText(v.getContext(), "To be implemented !", Toast.LENGTH_SHORT).show();
     }
-
 
     @Override
     public void onDeleteItem(int position, Meeting meeting) {
