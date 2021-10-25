@@ -20,15 +20,15 @@ import com.ocr.laz.mareu.databinding.ActivityAddMeetingBinding;
 import com.ocr.laz.mareu.di.Di;
 import com.ocr.laz.mareu.model.Meeting;
 import com.ocr.laz.mareu.model.Room;
-import com.ocr.laz.mareu.service.DummyRoomGenerator;
-import com.ocr.laz.mareu.service.MeetingApiService;
+import com.ocr.laz.mareu.repository.DummyRoomGenerator;
+import com.ocr.laz.mareu.repository.MeetingApiService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class AddMeetingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, View.OnClickListener,
+public class AddMeetingActivity extends AppCompatActivity implements View.OnClickListener,
         AdapterView.OnItemSelectedListener {
 
     ActivityAddMeetingBinding binding;
@@ -159,26 +159,26 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerD
         //binding.spinnerRoom.setOnItemSelectedListener(this);
     }
 
-   // private void initSpinner2() {
-   //     listGuestItems = getResources().getStringArray(R.array.Guest_List);
-   //     //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, listGuestItems);
-   //     ArrayAdapter<String> adapter;
-   //     adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, listGuestItems);
-   //     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-   //     binding.textFieldGuest2.setAdapter(adapter);
-   //    binding.textFieldGuest2.setOnItemSelectedListener(this);
-   //     //binding.textFieldGuest2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-   //     //    @Override
-   //     //    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    // private void initSpinner2() {
+    //     listGuestItems = getResources().getStringArray(R.array.Guest_List);
+    //     //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, listGuestItems);
+    //     ArrayAdapter<String> adapter;
+    //     adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, listGuestItems);
+    //     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    //     binding.textFieldGuest2.setAdapter(adapter);
+    //    binding.textFieldGuest2.setOnItemSelectedListener(this);
+    //     //binding.textFieldGuest2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    //     //    @Override
+    //     //    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //
-   //     //    }
+    //     //    }
 //
-   //     //    @Override
-   //     //    public void onNothingSelected(AdapterView<?> parent) {
+    //     //    @Override
+    //     //    public void onNothingSelected(AdapterView<?> parent) {
 //
-   //     //    }
-   //     //});
-   // }
+    //     //    }
+    //     //});
+    // }
 
     private void guestDialog() {
         MaterialAlertDialogBuilder mGBuilder = new MaterialAlertDialogBuilder(this);
@@ -191,22 +191,22 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerD
             binding.textFieldGuest2.setText(guests);
         });
 
-      // listGuestItems = getResources().getStringArray(R.array.Guest_List);
-      // checkedItems = new boolean[listGuestItems.length];
+        // listGuestItems = getResources().getStringArray(R.array.Guest_List);
+        // checkedItems = new boolean[listGuestItems.length];
         //TODO retablir les cases cochées
         mGBuilder.setMultiChoiceItems(listGuestItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
-           @Override
-           public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 
-               if (!selectedGuests.contains(listGuestItems[which])) {
-                   selectedGuests.add(listGuestItems[which]);
+                if (!selectedGuests.contains(listGuestItems[which])) {
+                    selectedGuests.add(listGuestItems[which]);
 
-               } else {
-                   selectedGuests.remove(listGuestItems[which]);
-               }
-               checkedItems[which]=isChecked;
-               Toast.makeText(AddMeetingActivity.this.getApplicationContext(), selectedGuests + " is checked", Toast.LENGTH_SHORT).show();
-           }
+                } else {
+                    selectedGuests.remove(listGuestItems[which]);
+                }
+                checkedItems[which] = isChecked;
+                Toast.makeText(AddMeetingActivity.this.getApplicationContext(), selectedGuests + " is checked", Toast.LENGTH_SHORT).show();
+            }
 
 
         });
@@ -268,18 +268,8 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerD
         //Toast.makeText(this,"Mail sent !",Toast.LENGTH_SHORT).show();finish();
         finish();
     }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-    }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-    }
-
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-    }
 }
+
+
 
 

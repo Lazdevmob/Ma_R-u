@@ -1,4 +1,4 @@
-package com.ocr.laz.mareu.service;
+package com.ocr.laz.mareu.repository;
 
 import com.ocr.laz.mareu.model.Meeting;
 
@@ -26,7 +26,8 @@ public class ImplMeetingApiService implements MeetingApiService  {
     }
 
     @Override
-    public void createMeeting(Meeting meeting) {
+    public void
+    createMeeting(Meeting meeting) {
         meetings.add(meeting);
     }
 
@@ -41,15 +42,16 @@ public class ImplMeetingApiService implements MeetingApiService  {
         return filteredMeetingByDateList;
     }
 
+
     @Override
     public List<Meeting> getMeetingsInGivenRooms(List<String> selectedRooms) {
-        List<Meeting> filteredselectedRoomsList = new ArrayList<>();
+        List<Meeting> filteredSelectedRoomsList = new ArrayList<>();
         for ( Meeting m : meetings) {
             if (selectedRooms.contains(m.getRoomName())) {
-                filteredselectedRoomsList.add(m);
+                filteredSelectedRoomsList.add(m);
             }
         }
-        return filteredselectedRoomsList;
+        return filteredSelectedRoomsList;
 
     }
 

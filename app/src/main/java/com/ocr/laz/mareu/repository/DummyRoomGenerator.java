@@ -1,4 +1,4 @@
-package com.ocr.laz.mareu.service;
+package com.ocr.laz.mareu.repository;
 
 import androidx.annotation.VisibleForTesting;
 import com.ocr.laz.mareu.R;

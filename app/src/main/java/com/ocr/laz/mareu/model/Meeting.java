@@ -5,7 +5,6 @@ package com.ocr.laz.mareu.model;
  */
 public class Meeting {
 
-    private long roomId;
     private  String subject;
     private String beginHour;
     private String date;

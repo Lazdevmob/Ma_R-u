@@ -1,4 +1,4 @@
-package com.ocr.laz.mareu.service;
+package com.ocr.laz.mareu.repository;
 
 /**
  * Created by Lazdev OCR on 10/09/2021.

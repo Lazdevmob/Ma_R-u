@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ocr.laz.mareu.databinding.MeetingItemBinding;
 import com.ocr.laz.mareu.model.Meeting;
-import com.ocr.laz.mareu.model.Room;
-import com.ocr.laz.mareu.service.DummyRoomGenerator;
+import com.ocr.laz.mareu.repository.DummyRoomGenerator;
 
 import java.util.Map;
 

@@ -1,7 +1,7 @@
 package com.ocr.laz.mareu.di;
 
-import com.ocr.laz.mareu.service.ImplMeetingApiService;
-import com.ocr.laz.mareu.service.MeetingApiService;
+import com.ocr.laz.mareu.repository.ImplMeetingApiService;
+import com.ocr.laz.mareu.repository.MeetingApiService;
 
  /**
   * Created by Lazdev OCR on 15/09/2021

@@ -1,4 +1,4 @@
-package com.ocr.laz.mareu.service;
+package com.ocr.laz.mareu.repository;
 
 import com.ocr.laz.mareu.model.Meeting;
 

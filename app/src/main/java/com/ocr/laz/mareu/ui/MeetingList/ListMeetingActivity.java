@@ -24,9 +24,9 @@ import com.ocr.laz.mareu.R;
 import com.ocr.laz.mareu.databinding.ActivityListMeetingBinding;
 import com.ocr.laz.mareu.di.Di;
 import com.ocr.laz.mareu.model.Meeting;
-import com.ocr.laz.mareu.service.DummyMeetingGenerator;
-import com.ocr.laz.mareu.service.DummyRoomGenerator;
-import com.ocr.laz.mareu.service.MeetingApiService;
+import com.ocr.laz.mareu.repository.DummyMeetingGenerator;
+import com.ocr.laz.mareu.repository.DummyRoomGenerator;
+import com.ocr.laz.mareu.repository.MeetingApiService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class ListMeetingActivity<AlertDialogBuilder> extends AppCompatActivity i
 
     private String[] listRoomItems;
     boolean[] checkedItem;
-    private List<String> selectedRooms = new ArrayList<>();
+    private final List<String> selectedRooms = new ArrayList<>();
 
 
     @Override
@@ -104,11 +104,12 @@ public class ListMeetingActivity<AlertDialogBuilder> extends AppCompatActivity i
         // mBuilder.setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
         //     // Respond to neutral button press
         // }
+
         mBuilder.setPositiveButton("ok", new OnClickListener() {
             // Respond to positive button press
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), selectedRooms.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), selectedRooms.toString(), Toast.LENGTH_SHORT).show();
                 List<Meeting> filteredRoomList = mMeetingApiService.getMeetingsInGivenRooms(selectedRooms);
 
                 // TODO mettre en place initlist
