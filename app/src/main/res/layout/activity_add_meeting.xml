@@ -2,13 +2,13 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_scrollmeetings"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/tt"
+        android:id="@+id/add_meetings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.MeetingList.AddMeetingActivity">
@@ -25,6 +25,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textFieldSubject2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -77,6 +78,9 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:hint="Room"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
+            android:clickable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textFieldHour">
@@ -85,7 +89,7 @@
                 android:id="@+id/textFieldRoom2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false" />
+                android:focusableInTouchMode="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

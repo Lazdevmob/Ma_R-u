@@ -12,7 +12,9 @@
         <activity
             android:name=".ui.MeetingList.AddMeetingActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaReu.NoActionBar"/>
+            android:label="Create a meeting"
+            android:parentActivityName="ui.MeetingList.ListMeetingActivity"
+            android:theme="@style/Theme.MaReu" />
         <activity android:name=".ui.MeetingList.ListMeetingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

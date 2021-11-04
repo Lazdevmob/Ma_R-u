@@ -5,6 +5,9 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import android.app.Application;
+import android.os.Build;
+
 import com.ocr.laz.mareu.di.Di;
 import com.ocr.laz.mareu.model.Meeting;
 
@@ -12,6 +15,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,15 +25,19 @@ import java.util.List;
 /**
  * Created by Lazdev OCR on 21/10/2021.
  */
-@RunWith(JUnit4.class)
+//@RunWith(JUnit4.class)
+
+@RunWith(RobolectricTestRunner.class)
+@Config(sdk = Build.VERSION_CODES.P)
 public class ImplMeetingApiServiceTest {
 
     private static final int POSITION_ITEM = 0;
     private MeetingApiService service;
-    //private final String GIVENDATE = "Mon 27/09/21";
-    private final String GIVENDATE2 = "Wed 22/09/21";
+    //private final String GIVENDATE = "lun. 27/09/21";
+    private final String GIVENDATE2 = "mer. 22/09/21";
     //private final String GIVENROOM = "Alpha";
     public static final List<String> GIVENROOM = Arrays.asList("Alphaa", "Betaa");
+
 
 
     @Before
@@ -71,8 +80,6 @@ public class ImplMeetingApiServiceTest {
 
         List<Meeting> meetingByDateList2 = service.getMeetingsAtGivenDate(GIVENDATE2);
         assertTrue(meetingByDateList2.isEmpty());
-
-
     }
 
     @Test
@@ -96,4 +103,6 @@ public class ImplMeetingApiServiceTest {
         assertTrue(meetingByRoomList2.isEmpty());
 
     }
+    //Context context = ApplicationProvider.getApplicationContext();
+    //String filterRoomString = context.getResources().getStringArray(R)
 }

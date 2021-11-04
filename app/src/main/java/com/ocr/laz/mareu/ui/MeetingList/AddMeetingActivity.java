@@ -207,8 +207,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 checkedItems[which] = isChecked;
                 Toast.makeText(AddMeetingActivity.this.getApplicationContext(), selectedGuests + " is checked", Toast.LENGTH_SHORT).show();
             }
-
-
         });
         mGBuilder.show();
     }
@@ -239,11 +237,10 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         String roomName = binding.textFieldRoom2.getText().toString();
         String guest = binding.textFieldGuest.getEditText().getText().toString();
 
-
-        // if (subject.isEmpty()) {
-        //     binding.textFieldSubject.setError("Please type a subject");
-        //     return;
-        // }
+        //if (subject.isEmpty()) {
+        //    binding.textFieldSubject.setError("Please type a subject");
+        //    return;
+        //}
         // if (date.isEmpty()) {
         //     binding.textFieldDate.setError("Please choose a date");
         //     return;
