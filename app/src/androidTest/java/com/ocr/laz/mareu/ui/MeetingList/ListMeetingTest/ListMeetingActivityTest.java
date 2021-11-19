@@ -1,4 +1,4 @@
-package com.ocr.laz.mareu.ui.MeetingList.ListMeeting;
+package com.ocr.laz.mareu.ui.MeetingList.ListMeetingTest;
 
 
 import static androidx.test.espresso.Espresso.onData;
@@ -39,20 +39,7 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public class ListMeetingActivityTest {
 
-    //private ActivityScenario<ListMeetingActivity> mActivityTestScenario;
-
     private static final int ITEMS_COUNT = 7;
-
-    //@Before
-    //public void setup() {
-    //    mActivityTestScenario = ActivityScenario.launch(ListMeetingActivity.class);
-    //}
-
-    //@After
-    //public void teardown() {
-    //    mActivityTestScenario.close();
-    //}
-
 
     @Rule
     public ActivityTestRule<ListMeetingActivity> mActivityTestRule = new ActivityTestRule<>(ListMeetingActivity.class);
@@ -97,6 +84,9 @@ public class ListMeetingActivityTest {
                 allOf(withId(android.R.id.button1),
                         isDisplayed()));
         materialButton.perform(click());
+
+        onView(withId(R.id.list_meetings)).check(matches(isDisplayed()));
+        onView(withId(R.id.recyclerview)).check(new RecyclerViewUtils.ItemCount(ITEMS_COUNT - 6));
     }
 
     @Test
@@ -129,7 +119,9 @@ public class ListMeetingActivityTest {
         ViewInteraction materialButton = onView(
                 allOf(withId(android.R.id.button1), withText("ok")));
         materialButton.perform(scrollTo(), click());
-    }
 
+        onView(withId(R.id.list_meetings)).check(matches(isDisplayed()));
+        onView(withId(R.id.recyclerview)).check(new RecyclerViewUtils.ItemCount(ITEMS_COUNT - 4));
+    }
 }
 

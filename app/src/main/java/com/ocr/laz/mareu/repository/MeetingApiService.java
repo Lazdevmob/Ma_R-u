@@ -20,7 +20,7 @@ public interface MeetingApiService {
 
     /**
      * delete a meeting
-     *
+     *      *
      * @param meeting
      */
 
@@ -29,12 +29,21 @@ public interface MeetingApiService {
 
     /**
      * create a meeting
-     *
      * @param meeting
      */
     void createMeeting(Meeting meeting);
 
+
+    /**
+     * * Filter meetings by date
+     * @param givenDate
+     */
     List<Meeting> getMeetingsAtGivenDate(String givenDate);
 
+
+    /**
+     * Filter meetings by room
+     * @param selectedRooms
+     */
     List<Meeting> getMeetingsInGivenRooms(List<String> selectedRooms);
 }

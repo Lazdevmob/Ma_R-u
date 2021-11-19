@@ -5,7 +5,6 @@ import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -14,15 +13,18 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
+import static org.hamcrest.Matchers.equalTo;
 
 import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.ocr.laz.mareu.R;
-import com.ocr.laz.mareu.ui.MeetingList.AddMeetingActivity;
+import com.ocr.laz.mareu.model.Room;
+import com.ocr.laz.mareu.repository.DummyRoomGenerator;
 import com.ocr.laz.mareu.ui.MeetingList.ListMeetingActivity;
 import com.ocr.laz.mareu.ui.MeetingList.utils.RecyclerViewUtils;
 
@@ -77,12 +79,24 @@ public class AddMeetingActivityTest {
                         isDisplayed()));
         materialButton.perform(click());
 
+/**
+ * addMeetingActivityTestRoom
+ */
+        ViewInteraction materialAutoCompleteTextView = onView(
+                withId(R.id.textFieldRoom2));
+        materialAutoCompleteTextView.perform(scrollTo(), click());
+
+        Room room = DummyRoomGenerator.generateRooms().get(3);
+        DataInteraction materialTextView = onData(equalTo(room))
+                .inRoot(RootMatchers.isPlatformPopup());
+        materialTextView.perform(click());
+
 
 /**
  * addMeetingActivityTestGuest
  */
-        ViewInteraction materialAutoCompleteTextView = onView(withId(R.id.textFieldGuest2));
-        materialAutoCompleteTextView.perform(scrollTo(), click());
+        ViewInteraction materialAutoCompleteTextView2 = onView(withId(R.id.textFieldGuest2));
+        materialAutoCompleteTextView2.perform(scrollTo(), click());
         DataInteraction appCompatCheckedTextView = onData(anything())
                 .inAdapterView(withId(R.id.select_dialog_listview))
                 .atPosition(0);
@@ -90,11 +104,16 @@ public class AddMeetingActivityTest {
         ViewInteraction materialButtonGuest = onView(withId(android.R.id.button1));
         materialButtonGuest.perform(scrollTo(), click());
 
-
+/**
+ * addMeetingActivityTestSaveButton
+ */
         ViewInteraction materialButton2 = onView(
                 allOf(withId(R.id.saveMeetingButton), withText("Save Meeting")));
         materialButton2.perform(click());
 
+/**
+ * addMeetingActivityTest
+ */
         onView(withId(R.id.list_meetings)).check(matches(isDisplayed()));
         onView(withId(R.id.recyclerview)).check(new RecyclerViewUtils.ItemCount(ITEMS_COUNT + 1));
     }

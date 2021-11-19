@@ -15,15 +15,15 @@
 
 
     <string-array name="Guest_List">
-        <item> Alfred.Hitchcock@myBox.fr</item>
-        <item> Freddie.Mercury@myBox.fr</item>
-        <item> David.Bowie@myBox.fr</item>
-        <item> Amy.Whinehouse@myBox.fr</item>
-        <item> Neil.Young@myBox.fr</item>
-        <item> Kate.Bush@myBox.fr</item>
-        <item> Quentin.Tarentino@myBox.fr</item>
-        <item> Wim.Wenders@myBox.fr</item>
-        <item> Ken.Loach@myBox.fr</item>
+        <item> Francis@lamzone.fr</item>
+        <item> Alexandra@lamzone.fr</item>
+        <item> Luc@lamzone.fr</item>
+        <item> Amandine@lamzone.fr</item>
+        <item> Paul@lamzone.fr</item>
+        <item> Viviane@lamzone.fr</item>
+        <item> Quentin@lamzone.fr</item>
+        <item> Maxime@lamzone.fr</item>
+        <item> Denis@lamzone.fr</item>
     </string-array>
 
 </resources>

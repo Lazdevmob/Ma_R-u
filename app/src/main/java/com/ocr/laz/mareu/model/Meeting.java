@@ -1,7 +1,7 @@
 package com.ocr.laz.mareu.model;
 
 /**
- * Created by Lazdev OCR on 08/09/2021.
+ * Model object representing a Meeting
  */
 public class Meeting {
 
