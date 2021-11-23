@@ -19,20 +19,14 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
 
     private List<Meeting> mMeetings;
     private final DeleteItemListener callback;
-    private final EditMeetingListener callback2;
 
-    public MeetingAdapter(List<Meeting> items, DeleteItemListener deleteItemListener, EditMeetingListener editMeetingListerner) {
+    public MeetingAdapter(List<Meeting> items, DeleteItemListener deleteItemListener) {
         mMeetings = items;
         callback = deleteItemListener;
-        callback2 = editMeetingListerner;
     }
 
     interface DeleteItemListener {
         void onDeleteItem(int Position, Meeting meeting);
-    }
-
-    interface EditMeetingListener {
-        void onEditMeeting(int adapterPosition, Meeting meeting);
     }
 
     @NonNull
@@ -54,15 +48,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
                 callback.onDeleteItem(holder.getAdapterPosition(), meeting);
             }
         });
-
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                callback2.onEditMeeting(holder.getAdapterPosition(), meeting);
-                return false;
-            }
-        });
-        //Glide.with(this)
     }
 
     @Override

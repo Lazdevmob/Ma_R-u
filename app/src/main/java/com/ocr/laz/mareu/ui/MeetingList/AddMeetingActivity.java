@@ -28,14 +28,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class AddMeetingActivity extends AppCompatActivity implements View.OnClickListener,
-        AdapterView.OnItemSelectedListener {
+public class AddMeetingActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener
+{
 
     ActivityAddMeetingBinding binding;
     private MeetingApiService mMeetingApiService = Di.getMeetingApiService();
-    //private final List<Room> rooms= new ArrayList<>();
     private Calendar calendar;
-    //int hour,minutes,dayOfMonth,month,year;
     private List<Room> rooms;
     private String[] listGuestItems;
     boolean[] checkedItems;
@@ -47,12 +45,10 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         binding = ActivityAddMeetingBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
-        //getSupportActionBar().setTitle("New meeting");
         setContentView(view);
         calendar = Calendar.getInstance();
         setButton();
         initSpinner();
-        //initSpinner2();
         listGuestItems = getResources().getStringArray(R.array.Guest_List);
         checkedItems = new boolean[listGuestItems.length];
     }
@@ -113,25 +109,9 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.YEAR, year);
 
-                //DateFormatSymbols monDFS = new DateFormatSymbols();
-                //String[] joursCourts = new String[] {
-                //        "",
-                //        "Di",
-                //        "Lu",
-                //        "Ma",
-                //        "Me",
-                //        "Je",
-                //        "Ve",
-                //        "Sa" };
-                //monDFS.setShortWeekdays(joursCourts);
-
-                //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE dd/MM/yy", monDFS);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE dd/MM/yy");
                 String date = simpleDateFormat.format(calendar.getTime());
                 binding.textFieldDate2.setText(date);
-
-                //binding.textFieldDate2.setText(String.format(Locale.getDefault(), "%d/%d/%d", dayOfMonth, month, year));
-                //binding.textFieldDate2.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
             }
         };
 
@@ -140,7 +120,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
          */
         int Style = AlertDialog.THEME_HOLO_DARK;
         DatePickerDialog datePickerDialog =
-                // new DatePickerDialog(this, Style, onDateSetListener, year, month, dayOfMonth);
                 new DatePickerDialog(this, Style, onDateSetListener,
                         calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
@@ -150,35 +129,11 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initSpinner() {
-        //List<Room> rooms = new ArrayList<>(DummyRoomGenerator.generateRooms());
         rooms = DummyRoomGenerator.generateRooms();
         ArrayAdapter<Room> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, rooms);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.textFieldRoom2.setAdapter(adapter);
-        //binding.spinnerRoom.setAdapter(adapter);
-        //binding.spinnerRoom.setOnItemSelectedListener(this);
     }
-
-    // private void initSpinner2() {
-    //     listGuestItems = getResources().getStringArray(R.array.Guest_List);
-    //     //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, listGuestItems);
-    //     ArrayAdapter<String> adapter;
-    //     adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, listGuestItems);
-    //     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    //     binding.textFieldGuest2.setAdapter(adapter);
-    //    binding.textFieldGuest2.setOnItemSelectedListener(this);
-    //     //binding.textFieldGuest2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-    //     //    @Override
-    //     //    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//
-    //     //    }
-//
-    //     //    @Override
-    //     //    public void onNothingSelected(AdapterView<?> parent) {
-//
-    //     //    }
-    //     //});
-    // }
 
     private void guestDialog() {
         MaterialAlertDialogBuilder mGBuilder = new MaterialAlertDialogBuilder(this);
@@ -187,25 +142,19 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         mGBuilder.setPositiveButton("ok", (dialog, which) -> {
             String guests = selectedGuests.toString()
                     .replace("[", "").replace("]", "");
-            //binding.textFieldGuest2.setText(selectedGuests.toString());
             binding.textFieldGuest2.setText(guests);
         });
 
-        // listGuestItems = getResources().getStringArray(R.array.Guest_List);
-        // checkedItems = new boolean[listGuestItems.length];
-        //TODO retablir les cases cochées
+        //retablir les cases cochées
         mGBuilder.setMultiChoiceItems(listGuestItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-
                 if (!selectedGuests.contains(listGuestItems[which])) {
                     selectedGuests.add(listGuestItems[which]);
-
-                } else {
-                    selectedGuests.remove(listGuestItems[which]);
+                }
+                else { selectedGuests.remove(listGuestItems[which]);
                 }
                 checkedItems[which] = isChecked;
-                Toast.makeText(AddMeetingActivity.this.getApplicationContext(), selectedGuests + " is checked", Toast.LENGTH_SHORT).show();
             }
         });
         mGBuilder.show();
@@ -213,9 +162,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // roomSelected = binding.spinnerRoom.getItemAtPosition(position);
-        //roomColor = rooms.get(position).getColour();
-        //selectedRoom = rooms.get(position);
     }
 
     @Override
@@ -262,7 +208,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         // }
 
         mMeetingApiService.createMeeting(new Meeting(subject, beginHour, date, guest, roomName));
-        //Toast.makeText(this,"Mail sent !",Toast.LENGTH_SHORT).show();finish();
         finish();
     }
 }

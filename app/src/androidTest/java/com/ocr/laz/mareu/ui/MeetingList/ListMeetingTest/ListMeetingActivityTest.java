@@ -15,6 +15,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.ocr.laz.mareu.ui.MeetingList.utils.RecyclerViewUtils.clickChildView;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
+import static org.hamcrest.core.IsNull.notNullValue;
 
 import android.widget.DatePicker;
 
@@ -28,9 +29,12 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.ocr.laz.mareu.R;
+import com.ocr.laz.mareu.di.Di;
+import com.ocr.laz.mareu.repository.MeetingApiService;
 import com.ocr.laz.mareu.ui.MeetingList.ListMeetingActivity;
 import com.ocr.laz.mareu.ui.MeetingList.utils.RecyclerViewUtils;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +42,6 @@ import org.junit.runner.RunWith;
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class ListMeetingActivityTest {
-
     private static final int ITEMS_COUNT = 7;
 
     @Rule
@@ -52,9 +55,9 @@ public class ListMeetingActivityTest {
     }
 
     @Test
-    public void checkIfRemovingUserIsWorking() {
+    public void checkIfRemoveMeetingIsWorking() {
         onView(ViewMatchers.withId(R.id.recyclerview))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildView(R.id.item_list_meeting_delete_button)));
+                .perform(RecyclerViewActions.actionOnItemAtPosition(1, clickChildView(R.id.item_list_meeting_delete_button)));
         onView(withId(R.id.recyclerview)).check(new RecyclerViewUtils.ItemCount(ITEMS_COUNT - 1));
     }
 
@@ -122,6 +125,22 @@ public class ListMeetingActivityTest {
 
         onView(withId(R.id.list_meetings)).check(matches(isDisplayed()));
         onView(withId(R.id.recyclerview)).check(new RecyclerViewUtils.ItemCount(ITEMS_COUNT - 4));
+    }
+
+    @Test
+    public void filterResetTest() {
+        ViewInteraction overflowMenuButton = onView(
+                allOf(withContentDescription("Plus d'options"),
+                        isDisplayed()));
+        overflowMenuButton.perform(click());
+
+        ViewInteraction materialTextView = onView(
+                allOf(withId(R.id.title), withText("reset"),
+                        isDisplayed()));
+        materialTextView.perform(click());
+
+        onView(withId(R.id.list_meetings)).check(matches(isDisplayed()));
+        onView(withId(R.id.recyclerview)).check(new RecyclerViewUtils.ItemCount(ITEMS_COUNT - 1));
     }
 }
 

@@ -55,9 +55,7 @@ public class AddMeetingActivityTest {
  */
         ViewInteraction textInputEditText = onView(withId(R.id.textFieldSubject2));
         textInputEditText.perform(replaceText("Reunion Test")
-                , closeSoftKeyboard()
-        );
-        //textInputEditText.perform(pressImeActionButton());
+                , closeSoftKeyboard());
 
 /**
  * addMeetingActivityTestDate

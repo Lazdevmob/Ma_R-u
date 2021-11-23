@@ -18,7 +18,7 @@ public abstract class DummyMeetingGenerator {
             new Meeting("Reunion 4","14.00", "jeu. 30/09/21", "Viviane@lamzone.fr, Alexandra@lamzone.fr", "Delta"),
             new Meeting("Reunion 5","14.00", "ven. 01/10/21", "Paul@lamzone.fr, Luc@lamzone.fr", "Epsilon"),
             new Meeting("Reunion 6","14.00", "lun. 04/10/21", "Maxime@lamzone.fr, Quentin@lamzone.fr", "Zeta"),
-            new Meeting("Reunion 7","14.00", "mar. 05/11/21", "Amandine@lamzone.fr, Denis@lamzone.fr", "Eta")
+            new Meeting("Reunion 7","14.00", "ven. 05/11/21", "Amandine@lamzone.fr, Denis@lamzone.fr", "Eta")
             );
 
     static List<Meeting> generateMeetings() {

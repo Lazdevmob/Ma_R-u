@@ -19,7 +19,6 @@ import java.util.Map;
  */
 public class MeetingViewHolder extends RecyclerView.ViewHolder {
 
-    //protected final ImageView meetingAvatar;
     protected final TextView meetingDescription;
     protected final TextView meetingGuest;
     protected final ImageButton meetingDeleteBtn;
@@ -36,8 +35,6 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void displayMeeting(@NonNull Meeting meeting) {
-        //meetingDescription.setText(new StringBuilder().append(meeting.getSubject())
-        // .append(" ").append(meeting.getBeginDate()).toString());
         meetingDescription.setText(new StringBuilder().append(meeting.getSubject())
                 .append(" - ").append(meeting.getBeginHour()).append(" - ").append(meeting.getDate()).toString());
         meetingGuest.setText(new StringBuilder().append(" - salle ")

@@ -33,12 +33,6 @@ public abstract class DummyRoomGenerator {
         return new ArrayList<>(DUMMY_ROOMS);
     }
 
-//   public static List<String> listStringRoom = Arrays.asList(
-//            "Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa"
-//    );
-
-
-
     //  public static String[] generateListStringRoom() {
     //      String[] listStringRoom = new String[DUMMY_ROOMS.size()];
     //      for (int i = 0; i < DUMMY_ROOMS.size(); i++) {

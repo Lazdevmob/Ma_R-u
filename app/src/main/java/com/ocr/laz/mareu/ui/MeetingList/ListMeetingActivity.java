@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,12 +36,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class ListMeetingActivity<AlertDialogBuilder> extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, View.OnClickListener,
-        MeetingAdapter.DeleteItemListener, MeetingAdapter.EditMeetingListener {
-
-    /**
-     * du recyclerview
-     * ldev
-     */
+        MeetingAdapter.DeleteItemListener {
 
     private ActivityListMeetingBinding binding;
 
@@ -93,7 +89,6 @@ public class ListMeetingActivity<AlertDialogBuilder> extends AppCompatActivity i
             case R.id.option_3:
                 initList(mMeetingApiService.getMeetings(), true);
                 return true;
-            //default:
         }
         return super.onOptionsItemSelected(item);
     }
@@ -101,15 +96,11 @@ public class ListMeetingActivity<AlertDialogBuilder> extends AppCompatActivity i
     private void roomDialog() {
         MaterialAlertDialogBuilder mBuilder = new MaterialAlertDialogBuilder(this);
         mBuilder.setTitle("room");
-        // mBuilder.setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
-        //     // Respond to neutral button press
-        // }
 
         mBuilder.setPositiveButton("ok", new OnClickListener() {
             // Respond to positive button press
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //Toast.makeText(getApplicationContext(), selectedRooms.toString(), Toast.LENGTH_SHORT).show();
                 List<Meeting> filteredRoomList = mMeetingApiService.getMeetingsInGivenRooms(selectedRooms);
 
                 // TODO mettre en place initlist
@@ -118,10 +109,7 @@ public class ListMeetingActivity<AlertDialogBuilder> extends AppCompatActivity i
             }
         });
 
-        //listRoomItems = DummyRoomGenerator.generateListStringRoom();
         listRoomItems = DummyRoomGenerator.generateRoomHashMap().keySet().toArray(new String[0]); // sequential with LinkedHashMap
-        //Arrays.sort(listRoomItems)
-        //Collections.
 
         checkedItem = new boolean[listRoomItems.length];
         //Single-choice items (initialized with checked item)
@@ -130,11 +118,6 @@ public class ListMeetingActivity<AlertDialogBuilder> extends AppCompatActivity i
         mBuilder.setMultiChoiceItems(listRoomItems, checkedItem, new OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                if (isChecked) {
-                    Toast.makeText(getApplicationContext(), listRoomItems[which] + " est sélectionnée", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), listRoomItems[which] + " est désélectionnée", Toast.LENGTH_SHORT).show();
-                }
                 if (!selectedRooms.contains(listRoomItems[which])) {
                     selectedRooms.add(listRoomItems[which]);
                 } else {
@@ -147,20 +130,6 @@ public class ListMeetingActivity<AlertDialogBuilder> extends AppCompatActivity i
 
     private void dateDialog() {
         calendar = Calendar.getInstance();
-//        DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
-//            @SuppressLint("NotifyDataSetChanged")
-//            @Override
-//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-//                calendar.set(Calendar.MONTH, month);
-//                calendar.set(Calendar.YEAR, year);
-//
-//                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE dd/MM/yy");
-//                String date = simpleDateFormat.format(calendar.getTime());
-//
-//                initList(mMeetingApiService.getMeetingsAtGivenDate(date), true);
-//            }
-//        };
         /**
          * definition display date dialog screen
          */
@@ -186,7 +155,7 @@ public class ListMeetingActivity<AlertDialogBuilder> extends AppCompatActivity i
     }
 
     private void initRecycler() {
-        adapter = new MeetingAdapter(mMeetings, this, this);
+        adapter = new MeetingAdapter(mMeetings, this);
         LinearLayoutManager layoutManager = (LinearLayoutManager) binding.recyclerview.getLayoutManager();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
                 Objects.requireNonNull(layoutManager).getOrientation());
@@ -195,6 +164,9 @@ public class ListMeetingActivity<AlertDialogBuilder> extends AppCompatActivity i
         //initList(mMeetingApiService.getMeetings(), true); //effectué par le onResume() (exécuté après onCreate() )
     }
 
+    /**
+     * Init the List of meetings
+     */
     private void initList(List<Meeting> meetings, boolean doRefresh) {
         mMeetings.clear();
         mMeetings.addAll(meetings);
@@ -208,7 +180,6 @@ public class ListMeetingActivity<AlertDialogBuilder> extends AppCompatActivity i
     @Override
     public void onClick(View v) {
         ListMeetingActivity.this.startActivity(new Intent(this, AddMeetingActivity.class));
-//        Toast.makeText(v.getContext(), "To be implemented !", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -219,16 +190,9 @@ public class ListMeetingActivity<AlertDialogBuilder> extends AppCompatActivity i
     }
 
     @Override
-    public void onEditMeeting(int adapterPosition, Meeting meeting) {
-        Toast.makeText(this, "to be implemented when activity is created", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         initList(mMeetingApiService.getMeetings(), true);
     }
-
-
 }
 

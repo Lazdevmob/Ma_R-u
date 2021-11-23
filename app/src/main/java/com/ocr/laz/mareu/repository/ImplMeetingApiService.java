@@ -10,10 +10,7 @@ import java.util.List;
  */
 public class ImplMeetingApiService implements MeetingApiService  {
 
-
-    //    private final List<Meeting> meetings= new ArrayList<>();
     private final List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();
-
 
     @Override
     public List<Meeting> getMeetings() {
